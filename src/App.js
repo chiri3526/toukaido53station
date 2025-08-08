@@ -20,11 +20,14 @@ import ContactMailIcon from '@mui/icons-material/ContactMail';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#1976d2',
+      main: '#a1887f', // 薄めた茶色
     },
     secondary: {
-      main: '#dc004e',
+      main: '#cfcfcf', // 薄めた灰色
     },
+  },
+  typography: {
+    fontFamily: `'Noto Serif JP', serif`, // 和風フォントを指定
   },
 });
 
