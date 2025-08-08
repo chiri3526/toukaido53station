@@ -8,13 +8,14 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@mui/material": "^5.x.x",
     "@emotion/react": "^11.x.x",
     "@emotion/styled": "^11.x.x",
-    "@mui/icons-material": "^5.x.x",
     "@fontsource/roboto": "^4.x.x",
+    "@mui/icons-material": "^5.x.x",
+    "@mui/material": "^5.x.x",
     "react": "^18.x.x",
     "react-dom": "^18.x.x",
-    "react-scripts": "5.x.x"
+    "react-scripts": "5.x.x",
+    "web-vitals": "^5.1.0"
   }
 }
