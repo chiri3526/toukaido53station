@@ -13,7 +13,6 @@ import {
   Box,
   Paper
 } from '@mui/material';
-{/* import { Home, Info, ContactMailIcon } from '@mui/icons-material/ContactMail';*/}
 import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
@@ -40,13 +39,13 @@ function App() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             My Material-UI App
           </Typography>
-          <Button color="inherit" startIcon={<Home />}>
+          <Button color="inherit" startIcon={<HomeIcon />}>
             ホーム
           </Button>
-          <Button color="inherit" startIcon={<Info />}>
+          <Button color="inherit" startIcon={<InfoIcon />}>
             について
           </Button>
-          <Button color="inherit" startIcon={<Contact />}>
+          <Button color="inherit" startIcon={<ContactMailIcon />}>
             お問い合わせ
           </Button>
         </Toolbar>

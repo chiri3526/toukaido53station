@@ -17,5 +17,17 @@
     "react-dom": "^18.x.x",
     "react-scripts": "5.x.x",
     "web-vitals": "^5.1.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
