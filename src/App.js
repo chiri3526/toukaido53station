@@ -13,7 +13,10 @@ import {
   Box,
   Paper
 } from '@mui/material';
-import { Home, Info, Contact } from '@mui/icons-material';
+{/* import { Home, Info, ContactMailIcon } from '@mui/icons-material/ContactMail';*/}
+import HomeIcon from '@mui/icons-material/Home';
+import InfoIcon from '@mui/icons-material/Info';
+import ContactMailIcon from '@mui/icons-material/ContactMail';
 
 const theme = createTheme({
   palette: {
