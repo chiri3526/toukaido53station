@@ -8,11 +8,14 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@date-io/date-fns": "^2.17.0",
     "@emotion/react": "^11.x.x",
     "@emotion/styled": "^11.x.x",
     "@fontsource/roboto": "^4.x.x",
     "@mui/icons-material": "^5.x.x",
     "@mui/material": "^5.x.x",
+    "@mui/x-date-pickers": "^6.18.1",
+    "date-fns": "^2.30.0",
     "react": "^18.x.x",
     "react-dom": "^18.x.x",
     "react-scripts": "5.x.x",
