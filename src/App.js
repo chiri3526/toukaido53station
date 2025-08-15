@@ -30,9 +30,17 @@ import {
   IconButton,
   CssBaseline,
   ToggleButtonGroup,
-  ToggleButton
+  ToggleButton,
+  Tooltip
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import LogoutIcon from '@mui/icons-material/Logout';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
+import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk';
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
+import FilterListIcon from '@mui/icons-material/FilterList';
 import { stations } from './data/stations';
 
 const theme = createTheme({
@@ -174,14 +182,61 @@ function MainContent() {
     <>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            東海道53次チェックリスト
-          </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Typography variant="body2" sx={{ mr: 2 }}>
-              {currentUser?.email}
+          <Box sx={{ flexGrow: 1 }}>
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{
+                display: 'block',
+                lineHeight: 1.2,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1
+              }}
+            >
+              <DirectionsWalkIcon sx={{ fontSize: 28 }} />
+              東海道53次
+              <br />
+              チェックリスト
             </Typography>
-            <Button color="inherit" onClick={handleLogout}>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-end'
+            }}
+          >
+            <Box sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1,
+              mb: 0.5,
+              color: 'rgba(255, 255, 255, 0.7)'
+            }}>
+              <AccountCircleIcon sx={{ fontSize: 20 }} />
+              <Typography variant="body2" sx={{ fontSize: '0.75rem' }}>
+                {currentUser?.email}
+              </Typography>
+            </Box>
+            <Button
+              color="inherit"
+              onClick={handleLogout}
+              size="small"
+              variant="outlined"
+              startIcon={<LogoutIcon />}
+              sx={{
+                whiteSpace: 'nowrap',
+                minWidth: 'auto',
+                border: '1px solid rgba(255, 255, 255, 0.5)',
+                borderRadius: '4px',
+                px: 2,
+                '&:hover': {
+                  border: '1px solid #fff',
+                  backgroundColor: 'rgba(255, 255, 255, 0.08)'
+                }
+              }}
+            >
               ログアウト
             </Button>
           </Box>
@@ -190,7 +245,8 @@ function MainContent() {
 
       <Container maxWidth="md" sx={{ mt: 4 }}>
         <Box sx={{ mb: 4 }}>
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <FilterListIcon />
             進捗状況
           </Typography>
           <Typography variant="body1" gutterBottom>
@@ -225,9 +281,11 @@ function MainContent() {
               すべて
             </ToggleButton>
             <ToggleButton value="visited" aria-label="show visited">
+              <CheckCircleIcon sx={{ mr: 0.5 }} />
               訪問済み
             </ToggleButton>
             <ToggleButton value="unvisited" aria-label="show unvisited">
+              <CancelIcon sx={{ mr: 0.5 }} />
               未訪問
             </ToggleButton>
           </ToggleButtonGroup>
@@ -239,8 +297,12 @@ function MainContent() {
               <Card
                 sx={{
                   bgcolor: station.visited ? 'rgba(161, 136, 127, 0.1)' : 'white',
-                  transition: 'background-color 0.3s ease',
-                  height: '100%'
+                  transition: 'all 0.3s ease',
+                  height: '100%',
+                  '&:hover': {
+                    transform: 'translateY(-2px)',
+                    boxShadow: 3
+                  }
                 }}
               >
                 <CardContent
@@ -282,24 +344,28 @@ function MainContent() {
                           gap: '4px'
                         }}
                       >
-                        <IconButton
-                          size="small"
-                          onClick={() => handleEditClick(station)}
-                        >
-                          <EditIcon fontSize="small" />
-                        </IconButton>
-                        <Checkbox
-                          checked={station.visited}
-                          onChange={() => handleToggleVisit(station.id)}
-                          size="small"
-                          sx={{
-                            color: '#a1887f',
-                            '&.Mui-checked': {
+                        <Tooltip title="詳細編集">
+                          <IconButton
+                            size="small"
+                            onClick={() => handleEditClick(station)}
+                          >
+                            <EditIcon fontSize="small" />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title={station.visited ? "訪問済み解除" : "訪問済みにする"}>
+                          <Checkbox
+                            checked={station.visited}
+                            onChange={() => handleToggleVisit(station.id)}
+                            size="small"
+                            sx={{
                               color: '#a1887f',
-                            },
-                            p: '4px'
-                          }}
-                        />
+                              '&.Mui-checked': {
+                                color: '#a1887f',
+                              },
+                              p: '4px'
+                            }}
+                          />
+                        </Tooltip>
                       </Box>
                     </Box>
                     {station.visited && station.visitDate && (
@@ -344,7 +410,8 @@ function MainContent() {
         </Grid>
 
         <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
-          <DialogTitle>
+          <DialogTitle sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <EditIcon />
             {selectedStation?.name} の詳細編集
           </DialogTitle>
           <DialogContent>
@@ -374,6 +441,7 @@ function MainContent() {
                 variant="outlined"
                 component="label"
                 fullWidth
+                startIcon={<PhotoCameraIcon />}
               >
                 写真をアップロード
                 <input
