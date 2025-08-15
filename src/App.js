@@ -31,7 +31,8 @@ import {
   CssBaseline,
   ToggleButtonGroup,
   ToggleButton,
-  Tooltip
+  Tooltip,
+  Paper
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -41,6 +42,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { stations } from './data/stations';
 
 const theme = createTheme({
@@ -150,6 +152,13 @@ function MainContent() {
     }
   };
 
+  const handleDeleteImage = () => {
+    setSelectedStation({
+      ...selectedStation,
+      imageUrl: null
+    });
+  };
+
   // フィルター変更ハンドラー
   const handleFilterChange = (event, newFilter) => {
     if (newFilter !== null) {
@@ -179,22 +188,18 @@ function MainContent() {
   };
 
   return (
-    <>
+    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar sx={{ py: { xs: 2, sm: 1 }}}> {/* ヘッダーの余白を調整 */}
           <Box sx={{ flexGrow: 1 }}>
             <Typography
               variant="h6"
               component="div"
               sx={{
                 display: 'block',
-                lineHeight: 1.2,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 1
+                lineHeight: 1.2
               }}
             >
-              <DirectionsWalkIcon sx={{ fontSize: 28 }} />
               東海道53次
               <br />
               チェックリスト
@@ -243,8 +248,15 @@ function MainContent() {
         </Toolbar>
       </AppBar>
 
-      <Container maxWidth="md" sx={{ mt: 4 }}>
-        <Box sx={{ mb: 4 }}>
+      <Container maxWidth="md" sx={{ mt: 4, flex: 1 }}>
+        <Paper
+          elevation={1}
+          sx={{
+            p: 3,
+            mb: 4,
+            backgroundColor: 'rgba(255, 255, 255, 0.8)'
+          }}
+        >
           <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <FilterListIcon />
             進捗状況
@@ -267,7 +279,7 @@ function MainContent() {
               }
             }}
           />
-        </Box>
+        </Paper>
 
         <Box sx={{ mb: 3, display: 'flex', justifyContent: 'center' }}>
           <ToggleButtonGroup
@@ -437,22 +449,8 @@ function MainContent() {
                 })}
                 sx={{ mb: 2 }}
               />
-              <Button
-                variant="outlined"
-                component="label"
-                fullWidth
-                startIcon={<PhotoCameraIcon />}
-              >
-                写真をアップロード
-                <input
-                  type="file"
-                  hidden
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                />
-              </Button>
               {selectedStation?.imageUrl && (
-                <Box sx={{ mt: 2 }}>
+                <Box sx={{ mb: 2 }}>
                   <img
                     src={selectedStation.imageUrl}
                     alt={selectedStation.name}
@@ -465,6 +463,33 @@ function MainContent() {
                   />
                 </Box>
               )}
+              <Box sx={{ display: 'flex', gap: 2 }}>
+                <Button
+                  variant="outlined"
+                  component="label"
+                  fullWidth
+                  startIcon={<PhotoCameraIcon />}
+                >
+                  {selectedStation?.imageUrl ? '別の写真をアップロード' : '写真をアップロード'}
+                  <input
+                    type="file"
+                    hidden
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                  />
+                </Button>
+                {selectedStation?.imageUrl && (
+                  <Button
+                    variant="contained"
+                    color="error"
+                    startIcon={<DeleteIcon />}
+                    onClick={handleDeleteImage}
+                    sx={{ minWidth: '120px' }}
+                  >
+                    削除
+                  </Button>
+                )}
+              </Box>
             </Box>
           </DialogContent>
           <DialogActions>
@@ -475,7 +500,28 @@ function MainContent() {
           </DialogActions>
         </Dialog>
       </Container>
-    </>
+
+      <Box
+        component="footer"
+        sx={{
+          py: 3,
+          px: 2,
+          mt: 4,
+          backgroundColor: 'white',
+          borderTop: '1px solid rgba(0, 0, 0, 0.12)'
+        }}
+      >
+        <Container maxWidth="md">
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            align="center"
+          >
+            Copyright © {new Date().getFullYear()} takatabi
+          </Typography>
+        </Container>
+      </Box>
+    </Box>
   );
 }
 
