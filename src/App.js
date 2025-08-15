@@ -54,6 +54,9 @@ const theme = createTheme({
       default: '#f5f5f5',
     },
   },
+  typography: {
+    fontFamily: '"Noto Serif JP", serif, "Roboto", "Helvetica", "Arial", sans-serif',
+  },
 });
 
 // PrivateRouteコンポーネントの作成
