@@ -347,10 +347,15 @@ function MainContent() {
                         sx={{
                           flex: 1,
                           display: 'flex',
-                          alignItems: 'center'
+                          alignItems: 'flex-start', // 左寄せ
+                          flexDirection: 'column',
+                          textAlign: 'left'
                         }}
                       >
-                        {station.id}. {station.name}
+                        <span>{station.id}. {station.name}</span>
+                        <Typography variant="caption" sx={{ color: 'gray', mt: '-2px', textAlign: 'left', alignSelf: 'flex-start' }}>
+                          {station.yomi}
+                        </Typography>
                       </Typography>
                       <Box
                         sx={{
